@@ -1,0 +1,135 @@
+[
+    {
+        "name": "Fiat 147",
+        "motor": "1.6",
+        "model": 2022,
+        "ubicacion": "Quilmes",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Ford Focus",
+        "motor": "2.0",
+        "model": 2021,
+        "ubicacion": "Buenos Aires",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Chevrolet Cruze",
+        "motor": "1.8",
+        "model": 2020,
+        "ubicacion": "La Plata",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Renault Kwid",
+        "motor": "1.0",
+        "model": 2023,
+        "ubicacion": "Morón",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Volkswagen Polo",
+        "motor": "1.6",
+        "model": 2022,
+        "ubicacion": "Tigre",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Toyota Corolla",
+        "motor": "2.0",
+        "model": 2023,
+        "ubicacion": "San Fernando",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Honda Civic",
+        "motor": "1.8",
+        "model": 2021,
+        "ubicacion": "Avellaneda",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Peugeot 208",
+        "motor": "1.6",
+        "model": 2022,
+        "ubicacion": "Lanús",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Nissan Sentra",
+        "motor": "1.8",
+        "model": 2020,
+        "ubicacion": "Lomas de Zamora",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Mazda 3",
+        "motor": "2.0",
+        "model": 2021,
+        "ubicacion": "Moreno",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "BMW Serie 3",
+        "motor": "2.5",
+        "model": 2023,
+        "ubicacion": "Pilar",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Mercedes-Benz C-Class",
+        "motor": "2.0",
+        "model": 2022,
+        "ubicacion": "San Isidro",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Audi A4",
+        "motor": "2.0",
+        "model": 2021,
+        "ubicacion": "CABA",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Fiat Cronos",
+        "motor": "1.8",
+        "model": 2023,
+        "ubicacion": "Quilmes",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Chevrolet Onix",
+        "motor": "1.4",
+        "model": 2020,
+        "ubicacion": "San Martín",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Renault Duster",
+        "motor": "2.0",
+        "model": 2022,
+        "ubicacion": "Rosario",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Ford Ranger",
+        "motor": "3.2",
+        "model": 2021,
+        "ubicacion": "Neuquén",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Toyota Hilux",
+        "motor": "2.8",
+        "model": 2023,
+        "ubicacion": "Mendoza",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    },
+    {
+        "name": "Volkswagen Amarok",
+        "motor": "3.0",
+        "model": 2020,
+        "ubicacion": "Córdoba",
+        "img": "https://img.freepik.com/psd-gratis/botella-vino-aislada-sobre-fondo-transparente_191095-28536.jpg?semt=ais_hybrid"
+    }
+]
