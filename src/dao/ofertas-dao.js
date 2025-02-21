@@ -12,7 +12,7 @@ class OfertasDAO {
   }
   async getOfertas() {
     try {
-        const ofertas = await ofertasModel.find().populate("bids");
+        const ofertas = await ofertasModel.find().populate("ofertas");
         return ofertas;
     } catch (error) {
         console.error("Error al obter ofertas",error);
@@ -21,7 +21,7 @@ class OfertasDAO {
   }
   async getOfertasById(ofertaId) {
     try {
-        const ofertasId = await ofertasModel.findById(ofertaId).populate("bids");
+        const ofertasId = await ofertasModel.findById(ofertaId).populate("ofertas");
         return ofertasId;
     } catch (error) {
         console.error("Error al obter oferta con ese id",error);
