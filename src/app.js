@@ -1,7 +1,8 @@
 import express from "express";
-import carsRouter from "../src/routes/cars-router.js";
-import ofertasRouter from "../src/routes/ofertas-router.js";
-import usuarioRouter from "../src/routes/usuario-router.js";
+import carsRouter from "./routes/cars-router.js"
+import ofertasRouter from "./routes/ofertas-router.js";
+import usuarioRouter from "./routes/usuario-router.js";
+import subastaRouter from "./routes/subastas-router.js"
 import "./database.js";
 import cors from "cors";
 const app = express();
@@ -20,6 +21,7 @@ app.get("/",(req,res) => {
 app.use("/api/cars",carsRouter);
 app.use("/api/ofertas", ofertasRouter);
 app.use("/api/usuario", usuarioRouter);
+app.use("/api/subastas",subastaRouter);
 
 
 
