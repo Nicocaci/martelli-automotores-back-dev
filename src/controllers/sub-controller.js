@@ -6,9 +6,9 @@ class SubastaController {
     try {
       const subastaData = req.body;
       const nuevaSubasta = await SubastaService.crearSubasta(subastaData);
-      res.status(201).json(nuevaSubasta);
+      res.status(201).send(nuevaSubasta);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: 'Error al crear subasta: ' + error.message });
     }
   }
 
@@ -22,23 +22,66 @@ class SubastaController {
       }
       res.json(subasta);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: 'Error al obtener subasta: ' + error.message });
     }
   }
 
-  // Obtener subastas de un usuario
-  async obtenerSubastasPorUsuario(req, res) {
+  // Obtener todas las subastas
+  async obtenerSubastas(req, res) {
     try {
-      const usuarioId = req.params.usuarioId;
-      const subastas = await SubastaService.obtenerSubastasPorUsuario(usuarioId);
-      if (!subastas || subastas.length === 0) {
-        return res.status(404).json({ message: 'No se encontraron subastas para este usuario' });
-      }
-      res.json(subastas);
+      const subasta = await SubastaService.obtenerSubastas();
+      res.status(200).json(subasta);  // Cambiado a 200 OK
     } catch (error) {
+      res.status(500).json({ message: 'Error al obtener subastas: ' + error.message });
+    }
+  }
+
+  // Actualizar una subasta por ID
+  async actualizarSubasta(req, res) {
+    try {
+      const subastaId = req.params.id;
+      const subastaData = req.body;
+      const subastaActualizada = await SubastaService.actualizarSubasta(subastaId, subastaData);
+      if (!subastaActualizada) {
+        return res.status(404).json({ message: 'Subasta no encontrada para actualizar' });
+      }
+      res.status(200).json(subastaActualizada);
+    } catch (error) {
+      res.status(500).json({ message: 'Error al actualizar subasta: ' + error.message });
+    }
+  }
+
+  // Eliminar una subasta por ID
+  async eliminarSubasta(req, res) {
+    try {
+      const subastaId = req.params.id;
+      const subastaEliminada = await SubastaService.eliminarSubasta(subastaId);
+      if (!subastaEliminada) {
+        return res.status(404).json({ message: 'Subasta no encontrada para eliminar' });
+      }
+      res.status(200).json({message: 'Subasta eliminada correctamente '});
+    } catch (error) {
+      res.status(500).json({ message: 'Error al eliminar subasta: ' + error.message });
+    }
+  }
+  // SubastaController.js
+
+  async agregarOferta(req, res) {
+    try {
+      const subastaId = req.params.id;
+      const ofertaData = req.body; 
+      
+      // Lógica para agregar la oferta
+      const subasta = await SubastaService.agregarOferta(subastaId, ofertaData);
+      
+      res.status(200).json(subasta);
+    } catch (error) {
+      console.error(error);
       res.status(500).json({ message: error.message });
     }
   }
+  
+
 }
 
 export default new SubastaController();

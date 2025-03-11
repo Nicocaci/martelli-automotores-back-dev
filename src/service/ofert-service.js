@@ -23,14 +23,31 @@ class OfertasService {
   }
 
   // Obtener todas las ofertas activas
-  async obtenerOfertasActivas() {
+  async obtenerOfertas() {
     try {
-      const ofertas = await OfertasRepository.obtenerOfertasActivas();
+      const ofertas = await OfertasRepository.obtenerOfertas();
       return ofertas;
     } catch (error) {
       throw new Error('Error en el servicio de ofertas: ' + error.message);
     }
   }
+    // Actualizar una oferta por ID
+    async actualizarOferta(ofertaId, ofertaData) { // Corregido nombre en singular
+      try {
+        return await OfertasRepository.actualizarOferta(ofertaId, ofertaData); 
+      } catch (error) {
+        throw new Error('Error en el servicio de ofertas: ' + error.message);
+      }
+    }
+  
+    // Eliminar una oferta por ID
+    async eliminarOferta(ofertaId) {
+      try {
+        return await OfertasRepository.eliminarOferta(ofertaId);
+      } catch (error) {
+        throw new Error('Error en el servicio de ofertas: ' + error.message);
+      }
+    }
 }
 
 export default new OfertasService();

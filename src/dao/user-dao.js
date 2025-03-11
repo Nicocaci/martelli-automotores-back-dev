@@ -13,7 +13,8 @@ class UsuarioDAO {
 
   async obtenerUsuarioPorId(usuarioId) {
     try {
-      const usuario = await UsuarioModel.findById(usuarioId).populate('ofertas');
+      const usuario = await UsuarioModel.findById(usuarioId).populate('ofertasHechas.subasta'); // Corrección aquí
+      if (!usuario) throw new Error("Usuario no encontrado");
       return usuario;
     } catch (error) {
       throw new Error('Error al obtener usuario: ' + error.message);
@@ -22,12 +23,42 @@ class UsuarioDAO {
 
   async obtenerTodosUsuarios() {
     try {
-      const usuarios = await UsuarioModel.find().populate('ofertas');
+      const usuarios = await UsuarioModel.find().populate('ofertasHechas.subasta'); // Corrección aquí
       return usuarios;
     } catch (error) {
       throw new Error('Error al obtener usuarios: ' + error.message);
     }
   }
+
+  async actualizarUsuario(usuarioId, userData) {
+    try {
+      const usuarioActualizado = await UsuarioModel.findByIdAndUpdate(usuarioId, userData, { new: true });
+      if (!usuarioActualizado) throw new Error("Usuario no encontrado");
+      return usuarioActualizado;
+    } catch (error) {
+      throw new Error('Error al actualizar usuario: ' + error.message);
+    }
+  }
+
+  async eliminarUsuario(usuarioId) {
+    try {
+      const usuarioEliminado = await UsuarioModel.findByIdAndDelete(usuarioId);
+      if (!usuarioEliminado) throw new Error("Usuario no encontrado");
+      return usuarioEliminado;
+    } catch (error) {
+      throw new Error('Error al eliminar usuario: ' + error.message);
+    }
+  }
+  async obtenerUsuarioPorNombre(nombre){
+    try {
+      const usuario = await UsuarioModel.findOne({ nombre }).populate('ofertasHechas.subasta'); // Corrección aquí
+      if (!usuario) throw new Error("Usuario no encontrado");
+      return usuario;
+    } catch (error) {
+      throw new Error('Error al obtener usuario: ' + error.message);
+    }
+  }
+  
 }
 
 export default new UsuarioDAO();

@@ -1,27 +1,55 @@
 import mongoose from "mongoose";
 
-const subastaSchema = mongoose.Schema({
-  ofertaId: {
-    type: mongoose.Schema.Types.ObjectId, // Relación con el modelo de ofertas
-    ref: "ofertas",
-    required: true,
+const subastaSchema = new mongoose.Schema({
+  autos: {
+    nombre: {
+      type: String,
+      required: true
+    },
+    motor: {
+      type: String,
+      required: true
+    },
+    modelo: {
+      type: String,
+      required: true
+    },
+    ubicacion: {
+      type: String,
+      required: true
+    },
+    img: {
+      type: String,
+    }
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId, // Relación con el modelo de usuarios
-    ref: "usuarios",
-    required: true,
+  fechaInicio: {
+    type: Date,
+    default: () => Date.now()
   },
-  bidAmount: {
-    type: Number, // Monto de la oferta
-    required: true,
-    min: 0,
+  fechaFin: {
+    type: Date,
+    required: true
   },
-  createdAt: {
-    type: Date, // Fecha y hora en que se realizó la oferta
-    default: Date.now,
+  precioInicial: {
+    type: Number,
+    required: true
   },
+  ofertadores: [
+    {
+      usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "usuarios",
+        required: true
+      },
+      monto: {
+        type: Number,
+        required: true
+      }
+    }
+  ]
 });
 
 const SubastaModel = mongoose.model("subastas", subastaSchema);
 
 export default SubastaModel;
+

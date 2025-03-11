@@ -1,3 +1,4 @@
+
 import OfertasService from '../service/ofert-service.js';
 
 class OfertasController {
@@ -27,10 +28,29 @@ class OfertasController {
   }
 
   // Obtener todas las ofertas activas
-  async obtenerOfertasActivas(req, res) {
+  async obtenerOfertas(req, res) {
     try {
-      const ofertas = await OfertasService.obtenerOfertasActivas();
-      res.json(ofertas);
+      const ofertas = await OfertasService.obtenerOfertas();
+      res.status(200).json(ofertas);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  async actualizarOferta(req,res){
+    try {
+      const ofertaId = req.params.id;
+      const ofertaData = req.body;
+      const ofertaActualizada = await OfertasService.actualizarOferta(ofertaId,ofertaData);
+      res.status(200).json(ofertaActualizada);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  async eliminarOferta(req,res){
+    try {
+      const ofertaId = req.params.id;
+      const ofertaEliminada = await OfertasService.eliminarOferta(ofertaId);
+      res.status(200).json(ofertaEliminada);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

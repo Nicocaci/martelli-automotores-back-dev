@@ -4,9 +4,7 @@ class UsuarioService {
   // Crear un nuevo usuario
   async crearUsuario(userData) {
     try {
-      // Aquí puedes agregar más lógica de negocio antes de crear al usuario
-      const usuario = await UsuarioRepository.crearUsuario(userData);
-      return usuario;
+      return await UsuarioRepository.crearUsuario(userData);
     } catch (error) {
       throw new Error('Error en el servicio de usuario: ' + error.message);
     }
@@ -15,8 +13,21 @@ class UsuarioService {
   // Obtener un usuario por su ID
   async obtenerUsuarioPorId(usuarioId) {
     try {
-      // Se puede agregar más lógica de negocio si es necesario
       const usuario = await UsuarioRepository.obtenerUsuarioPorId(usuarioId);
+      if (!usuario) {
+        throw new Error('Usuario no encontrado');
+      }
+      return usuario;
+    } catch (error) {
+      throw new Error('Error en el servicio de usuario: ' + error.message);
+    }
+  }
+  async obtenerUsuarioPorNombre(nombre) {
+    try {
+      const usuario = await UsuarioRepository.obtenerUsuarioPorNombre(nombre);
+      if (!usuario) {
+        throw new Error('Usuario no encontrado');
+      }
       return usuario;
     } catch (error) {
       throw new Error('Error en el servicio de usuario: ' + error.message);
@@ -24,10 +35,31 @@ class UsuarioService {
   }
 
   // Obtener todos los usuarios
-  async obtenerTodosUsuarios() {
+  async obtenerUsuarios() { 
     try {
-      const usuarios = await UsuarioRepository.obtenerTodosUsuarios();
+      const usuarios = await UsuarioRepository.obtenerUsuarios();  // Corregido para mayor coherencia
+      if (!usuarios.length) {
+        throw new Error('No hay usuarios registrados');
+      }
       return usuarios;
+    } catch (error) {
+      throw new Error('Error en el servicio de usuario: ' + error.message);
+    }
+  }
+
+  // Actualizar un usuario
+  async actualizarUsuario(usuarioId, userData) {
+    try {
+      return await UsuarioRepository.actualizarUsuario(usuarioId, userData); 
+    } catch (error) {
+      throw new Error('Error en el servicio de usuario: ' + error.message);
+    }
+  }
+
+  // Eliminar un usuario
+  async eliminarUsuario(usuarioId) {
+    try {
+      return await UsuarioRepository.eliminarUsuario(usuarioId);
     } catch (error) {
       throw new Error('Error en el servicio de usuario: ' + error.message);
     }
