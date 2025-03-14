@@ -1,19 +1,8 @@
-import jwt from 'jsonwebtoken';
-
-const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization')?.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ message: 'Acceso denegado' });
+const verificarAutenticacion = (req,res,next) => {
+    if(req.isAuthenticated()){
+        return res.status(403).json({message: "Ya estas autenticado"});
     }
-
-    try {
-        const decoded = jwt.verify(token, 'secreto');
-        req.usuario = decoded;
-        next();
-    } catch (error) {
-        res.status(401).json({ message: 'Token inválido' });
-    }
+    next();
 };
 
-export default authMiddleware;
+export default verificarAutenticacion;

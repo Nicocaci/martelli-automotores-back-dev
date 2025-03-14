@@ -25,12 +25,21 @@ const usuarioSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  rol: {
+    type: String,
+    enum: ['admin', 'user'],
+    default: 'user',
+  },
   ofertasHechas: [
     {
       subasta:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "subastas"
       },
+      monto: {
+        type: Number,
+        required: true
+      }
     }
   ],
 });

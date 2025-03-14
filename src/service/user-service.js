@@ -34,6 +34,17 @@ class UsuarioService {
     }
   }
 
+  async obtenerUsuarioPorEmail(email) {
+    try {
+      const usuario = await UsuarioRepository.obtenerUsuarioPorEmail({email});
+      if (!usuario) {
+        throw new Error('Usuario no encontrado');
+      }
+      return usuario;
+    } catch (error) {
+      throw new Error('Error en el servicio de usuario: ' + error.message);
+    }
+  }
   // Obtener todos los usuarios
   async obtenerUsuarios() { 
     try {

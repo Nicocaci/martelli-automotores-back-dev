@@ -13,8 +13,12 @@ class UsuarioDAO {
 
   async obtenerUsuarioPorId(usuarioId) {
     try {
-      const usuario = await UsuarioModel.findById(usuarioId).populate('ofertasHechas.subasta'); // Corrección aquí
+      const usuario = await UsuarioModel.findById(usuarioId).populate('ofertasHechas.subasta');
+  
       if (!usuario) throw new Error("Usuario no encontrado");
+  
+      console.log("Usuario encontrado:", JSON.stringify(usuario, null, 2)); // 🛑 VERIFICAR QUÉ TRAE LA DB
+  
       return usuario;
     } catch (error) {
       throw new Error('Error al obtener usuario: ' + error.message);
@@ -23,7 +27,7 @@ class UsuarioDAO {
 
   async obtenerTodosUsuarios() {
     try {
-      const usuarios = await UsuarioModel.find().populate('ofertasHechas.subasta'); // Corrección aquí
+      const usuarios = await UsuarioModel.find(); // Corrección aquí
       return usuarios;
     } catch (error) {
       throw new Error('Error al obtener usuarios: ' + error.message);
@@ -53,6 +57,16 @@ class UsuarioDAO {
     try {
       const usuario = await UsuarioModel.findOne({ nombre }).populate('ofertasHechas.subasta'); // Corrección aquí
       if (!usuario) throw new Error("Usuario no encontrado");
+      return usuario;
+    } catch (error) {
+      throw new Error('Error al obtener usuario: ' + error.message);
+    }
+  }
+
+  async obtenerUsuarioPorEmail(email){
+    try {
+      const usuario = await UsuarioModel.findOne({email}).populate("ofertasHechas.subasta");
+      if(!usuario) throw new Error("Usuario no encontrado");
       return usuario;
     } catch (error) {
       throw new Error('Error al obtener usuario: ' + error.message);

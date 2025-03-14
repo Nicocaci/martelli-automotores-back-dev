@@ -2,11 +2,13 @@
 import express from "express";
 import SubastaController from "../controllers/sub-controller.js";
 const router = express.Router();
+import verificarToken from "../utils/jsonwebtoken.js"
 
 
 
 
-router.post('/', SubastaController.crearSubasta);
+
+router.post('/' , SubastaController.crearSubasta); 
 router.get('/:id', SubastaController.obtenerSubastaPorId);
 router.get('/', SubastaController.obtenerSubastas);
 router.put('/:id', SubastaController.actualizarSubasta);

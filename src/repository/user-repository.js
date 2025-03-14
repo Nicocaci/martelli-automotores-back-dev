@@ -13,7 +13,20 @@ class UsuarioRepository {
   // Obtener un usuario por su ID
   async obtenerUsuarioPorId(usuarioId) {
     try {
-      const usuario = await UsuarioDAO.obtenerUsuarioPorId(usuarioId);
+        const usuario = await UsuarioDAO.obtenerUsuarioPorId(usuarioId);
+
+        if (!usuario) {
+            throw new Error('Usuario no encontrado');
+        }
+        return usuario;
+    } catch (error) {
+        throw new Error('Error en el repositorio de usuario: ' + error.message);
+    }
+}
+
+  async obtenerUsuarioPorNombre(nombre) {
+    try {
+      const usuario = await UsuarioDAO.obtenerUsuarioPorNombre(nombre);
       if (!usuario) {
         throw new Error('Usuario no encontrado');
       }
@@ -22,10 +35,9 @@ class UsuarioRepository {
       throw new Error('Error en el repositorio de usuario: ' + error.message);
     }
   }
-
-  async obtenerUsuarioPorNombre(nombre) {
+  async obtenerUsuarioPorEmail(email) {
     try {
-      const usuario = await UsuarioDAO.obtenerUsuarioPorNombre(nombre);
+      const usuario = await UsuarioDAO.obtenerUsuarioPorEmail({email});
       if (!usuario) {
         throw new Error('Usuario no encontrado');
       }
@@ -64,6 +76,18 @@ class UsuarioRepository {
     }
   }
   
+  // async register(){
+
+  // }
+  // async login(){
+
+  // }
+  
+  // async logout(){
+
+  // }
+
 }
+
 
 export default new UsuarioRepository();

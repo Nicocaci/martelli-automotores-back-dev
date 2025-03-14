@@ -75,6 +75,9 @@ async agregarOferta(subastaId, ofertaData) {
     subasta.ofertadores.push({ usuario: usuario, monto });
 
     await subasta.save();
+
+    usuarioExistente.ofertasHechas.push({subasta:subastaId, monto});
+    await usuarioExistente.save();
     return subasta;
   } catch (error) {
     throw new Error('Error al agregar la oferta: ' + error.message);
