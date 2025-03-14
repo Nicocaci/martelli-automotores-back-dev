@@ -56,6 +56,4 @@ app.use("/api/ofertas", ofertRouter);
 
 
 
-app.listen(PUERTO,() =>{
-    console.log(`Escuchando en el Puerto: ${PUERTO}` );
-}); 
+export default app;
