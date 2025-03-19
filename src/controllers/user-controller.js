@@ -133,7 +133,8 @@ class UsuarioController {
         secure: true,    // 🔥 Asegura que solo se envíe por HTTPS (funciona en Railway)
         sameSite: "None", // 🔥 Importante para que funcione en diferentes dominios
         maxAge: 24 * 60 * 60 * 1000, // 24 horas
-        path: '/',// Disponible en toda la app
+        path: '/',
+        domain: ".railway.app", // Disponible en toda la app
       });
 
       return res.status(201).json({
@@ -145,10 +146,15 @@ class UsuarioController {
       res.status(500).json({ message: 'Error de Login' + error.message })
     }
   }
-
   async logOut(req, res) {
-    res.clearCookie('acces_token')
-      .json({ message: 'LogOUT' })
+    const cookies = req.cookies;  // Obtener todas las cookies
+  
+    // Recorrer todas las cookies y eliminarlas
+    for (let cookie in cookies) {
+      res.clearCookie(cookie, { path: '/' });  // Eliminar cada cookie con el path por defecto
+    }
+  
+    res.json({ message: 'LogOUT' });
   }
 }
 
