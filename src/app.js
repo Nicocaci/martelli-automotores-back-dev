@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
 app.use(cors({
-        origin:"https://martelli-automotes-back-production.up.railway.app",
+        origin:"https://martelli-automotores-front-production.up.railway.app",
         credentials: true,
 }));
 app.use(session({
