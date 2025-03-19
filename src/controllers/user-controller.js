@@ -129,10 +129,10 @@ class UsuarioController {
         rol: usuario.rol
       })
       res.cookie('acces_token', token, {
-        httpOnly: false,  // Evita el acceso desde JavaScript en el navegador
-        secure: false,    // Solo envía la cookie a través de HTTPS
+        httpOnly: true,  // Evita el acceso desde JavaScript en el navegador
+        secure: true,    // Solo envía la cookie a través de HTTPS
         maxAge: 24 * 60 * 60 * 1000, // Expira en 24 horas (milisegundos)
-        sameSite: 'strict', // Evita envío en solicitudes de otros sitios
+        sameSite: 'None', // Evita envío en solicitudes de otros sitios
         path: '/' // Disponible en toda la aplicación
       });
 
