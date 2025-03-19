@@ -41,7 +41,7 @@ app.use(session({
     }),
     cookie: {
         secure: true,   // 🔥 Necesario para HTTPS en Railway
-        httpOnly: true, // 🔥 No accesible desde frontend
+        httpOnly: false, // 🔥 No accesible desde frontend
         sameSite: "None" // 🔥 Para que funcione en dominios distintos
     }
 }));
