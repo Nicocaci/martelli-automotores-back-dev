@@ -35,7 +35,7 @@ app.use(session({
         ttl: 100
     }),
     cookie: {
-        secure: false, // Si estás en localhost, ponlo en `true` si usas HTTPS
+        secure: true, // Si estás en localhost, ponlo en `true` si usas HTTPS
         httpOnly: true,
         sameSite: "lax"
     }
