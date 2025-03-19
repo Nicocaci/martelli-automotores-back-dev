@@ -110,7 +110,7 @@ class UsuarioController {
       if (!usuario) {
         return res.status(404).json({ message: "Usuario no encontrado" })
       }
-      
+
       //Verificamos password
 
       const esValida = await bcrypt.compare(password, usuario.password);
@@ -119,8 +119,8 @@ class UsuarioController {
       }
 
       //Generamos Token
-      
-      
+
+
       const token = generateToken({
         _id: usuario._id,
         email: usuario.email,
@@ -133,8 +133,7 @@ class UsuarioController {
         secure: true,    // 🔥 Asegura que solo se envíe por HTTPS (funciona en Railway)
         sameSite: "None", // 🔥 Importante para que funcione en diferentes dominios
         maxAge: 24 * 60 * 60 * 1000, // 24 horas
-        path: '/',
-        domain: ".railway.app", // Disponible en toda la app
+        path: '/',// Disponible en toda la app
       });
 
       return res.status(201).json({
