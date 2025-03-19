@@ -73,31 +73,51 @@ class SubastaService {
   // SubastaService.js
   async agregarOferta(subastaId, ofertaData) {
     try {
-      const { usuario, monto } = ofertaData;
+        const { usuario, monto } = ofertaData;
 
-      // Verifica que el usuario exista en la base de datos antes de agregar la oferta
-      const usuarioExistente = await UsuarioModel.findById(usuario);
-      if (!usuarioExistente) {
-        throw new Error('El usuario no existe');
-      }
+        // 1. Verificar si el usuario existe
+        const usuarioExistente = await UsuarioModel.findById(usuario);
+        if (!usuarioExistente) {
+            throw new Error('El usuario no existe');
+        }
 
-      const subasta = await SubastaModel.findById(subastaId);
-      if (!subasta) {
-        throw new Error('Subasta no encontrada');
-      }
+        // 2. Verificar si la subasta existe
+        const subasta = await SubastaModel.findById(subastaId);
+        if (!subasta) {
+            throw new Error('Subasta no encontrada');
+        }
 
-      // Si el usuario existe, agregamos la oferta
-      subasta.ofertadores.push({ usuario: usuario, monto });
+        // 3. Revisar si el usuario ya hizo una oferta en esta subasta
+        const ofertaExistente = subasta.ofertadores.find(o => o.usuario.toString() === usuario);
 
-      await subasta.save();
+        if (ofertaExistente) {
+            // Si ya existe una oferta, actualizar el monto
+            ofertaExistente.monto = monto;
+        } else {
+            // Si no existe, agregar la nueva oferta
+            subasta.ofertadores.push({ usuario, monto });
+        }
 
-      usuarioExistente.ofertasHechas.push({ subasta: subastaId, monto });
-      await usuarioExistente.save();
-      return subasta;
+        await subasta.save();
+
+        // 4. Actualizar la oferta en la colección de usuarios
+        const ofertaUsuario = usuarioExistente.ofertasHechas.find(o => o.subasta.toString() === subastaId);
+        
+        if (ofertaUsuario) {
+            // Si ya existe una oferta en el usuario, actualizar el monto
+            ofertaUsuario.monto = monto;
+        } else {
+            // Si no existe, agregar la nueva oferta
+            usuarioExistente.ofertasHechas.push({ subasta: subastaId, monto });
+        }
+
+        await usuarioExistente.save();
+
+        return subasta;
     } catch (error) {
-      throw new Error('Error al agregar la oferta: ' + error.message);
+        throw new Error('Error al agregar la oferta: ' + error.message);
     }
-  }
+}
 
 
 
