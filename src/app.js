@@ -24,16 +24,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// 🔥 Configurar CORS correctamente
 app.use(cors({
     origin: "https://martelli-automotores-front-production.up.railway.app",
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
-// 🔥 Si usas Railway, agrega esto para que las cookies `secure: true` funcionen bien
-app.set("trust proxy", 1);
-
-// 🔥 Middleware de sesiones
 app.use(session({
     secret: 'autos',
     resave: false,
@@ -43,13 +40,12 @@ app.use(session({
         ttl: 100
     }),
     cookie: {
-        secure: true,   // Solo con HTTPS
-        httpOnly: false, // No accesible desde frontend
-        sameSite: "None" // Necesario si frontend y backend están en dominios distintos
+        secure: true,   // 🔥 Necesario para HTTPS en Railway
+        httpOnly: true, // 🔥 No accesible desde frontend
+        sameSite: "None" // 🔥 Para que funcione en dominios distintos
     }
 }));
 
-// 🔥 Middleware para evitar problemas con CORS y credenciales
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Credentials", "true");
     next();
