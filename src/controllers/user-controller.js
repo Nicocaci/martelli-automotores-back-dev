@@ -133,7 +133,8 @@ class UsuarioController {
         secure: true,    // 🔥 Asegura que solo se envíe por HTTPS (funciona en Railway)
         sameSite: "None", // 🔥 Importante para que funcione en diferentes dominios
         maxAge: 24 * 60 * 60 * 1000, // 24 horas
-        path: '/' // Disponible en toda la app
+        path: '/',
+        domain: ".railway.app", // Disponible en toda la app
       });
 
       return res.status(201).json({
