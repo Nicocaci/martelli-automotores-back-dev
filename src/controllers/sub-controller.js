@@ -1,3 +1,4 @@
+import SubastaModel from '../dao/models/subastas-model.js';
 import SubastaService from '../service/sub-service.js';
 
 class SubastaController {
@@ -80,6 +81,71 @@ class SubastaController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  async finalizarSubasta(req, res) {
+    const { id } = req.params;
+    try {
+        const subasta = await SubastaModel.findById(id);
+        if (!subasta) {
+            return res.status(404).json({ message: "Subasta no encontrada" });
+        }
+
+        subasta.finalizada = true;
+        subasta.tiempoExtraRestante = null; // Resetear el tiempo extra
+        await subasta.save();
+
+        res.status(200).json({ message: "Subasta finalizada correctamente" });
+    } catch (error) {
+        res.status(500).json({ message: "Error al finalizar la subasta", error });
+    }
+}
+
+  async activarTiempoExtra(req, res) {
+    const { id } = req.params;
+    try {
+        const subasta = await SubastaModel.findById(id);
+        if (!subasta) {
+            return res.status(404).json({ message: "Subasta no encontrada" });
+        }
+
+        // Si el tiempo extra aún no está activo, lo iniciamos en 60 segundos
+        if (subasta.tiempoExtraRestante === null) {
+            subasta.tiempoExtraRestante = 60;
+            await subasta.save();
+        }
+
+        res.status(200).json({ tiempoExtraRestante: subasta.tiempoExtraRestante });
+    } catch (error) {
+        res.status(500).json({ message: "Error al activar tiempo extra", error });
+    }
+}
+
+async reducirTiempoExtra(req, res) {
+  const { id } = req.params;
+  try {
+      const subasta = await SubastaModel.findById(id);
+      if (!subasta) {
+          return res.status(404).json({ message: "Subasta no encontrada" });
+      }
+
+      if (subasta.tiempoExtraRestante > 0) {
+          subasta.tiempoExtraRestante -= 1;
+          await subasta.save();
+      } else if (subasta.tiempoExtraRestante === 0 && !subasta.finalizada) {
+          subasta.finalizada = true; // ✅ Ahora se finaliza correctamente
+          subasta.tiempoExtraRestante = null;
+          await subasta.save();
+      }
+
+      res.status(200).json({ 
+          tiempoExtraRestante: subasta.tiempoExtraRestante, 
+          finalizada: subasta.finalizada 
+      });
+  } catch (error) {
+      res.status(500).json({ message: "Error al reducir tiempo extra", error });
+  }
+}
+
   
 
 }

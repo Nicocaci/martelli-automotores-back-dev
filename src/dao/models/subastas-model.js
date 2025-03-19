@@ -46,8 +46,15 @@ const subastaSchema = new mongoose.Schema({
         required: true
       }
     }
-  ]
+  ],
+  finalizada: { 
+    type: Boolean, 
+    default: false // Nueva propiedad para saber si la subasta terminó
+  },
+  tiempoExtraRestante: { type: Number, default: null }
 });
+
+
 
 const SubastaModel = mongoose.model("subastas", subastaSchema);
 

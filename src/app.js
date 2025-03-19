@@ -1,20 +1,19 @@
 import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv"; 
 import carsRouter from "./routes/cars-router.js"
 import userRouter from "./routes/user-router.js";
 import subRouter from "./routes/sub-router.js";
 import ofertRouter from "./routes/ofert-router.js";
-
-
-
-
-
-import "./database.js";
+// import "./database.js";
 import cors from "cors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 const app = express();
-const PUERTO = 8080;
+const PORT = process.env.PORT || 8080;
+const connection = mongoose.connect(process.env.MONGO_URL)
+dotenv.config();
 
 
 app.use(express.json());
@@ -56,4 +55,7 @@ app.use("/api/ofertas", ofertRouter);
 
 
 
-export default app;
+app.listen(PORT,() =>{
+    console.log(`Escuchando en el Puerto: ${PORT}` );
+    console.log("Hora del servidor:", new Date().toLocaleString());
+}); 
