@@ -11,11 +11,11 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 const app = express();
-const PORT = process.env.PORT || 8080;
 dotenv.config();
 const connection = mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log("Conectado a MongoDB"))
 .catch((err) => console.error("Error al conectar con MongoDB:", err));
+const PORT = process.env.PORT || 8080;
 
 
 
