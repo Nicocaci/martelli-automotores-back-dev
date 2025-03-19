@@ -47,42 +47,57 @@ class SubastaService {
   // Eliminar una subasta
   async eliminarSubasta(subastaId) {
     try {
-      const subastaEliminada = await SubastaRepository.eliminarSubasta(subastaId);
-      return subastaEliminada;
+      // 1. Buscar la subasta antes de eliminarla
+      const subasta = await SubastaModel.findById(subastaId);
+      if (!subasta) {
+        return null; // Si no existe, retorna null
+      }
+
+      // 2. Eliminar la subasta
+      await SubastaModel.findByIdAndDelete(subastaId);
+
+      // 3. Eliminar la referencia de la subasta en "ofertasHechas" de los usuarios
+      await UsuarioModel.updateMany(
+        { "ofertasHechas.subasta": subastaId },  // Busca usuarios que hicieron ofertas en esta subasta
+        { $pull: { ofertasHechas: { subasta: subastaId } } }  // Elimina la subasta de la lista
+      );
+
+      return subasta;  // Retorna la subasta eliminada
     } catch (error) {
-      throw new Error('Error en el servicio de subastas: ' + error.message); // Corregido
+      throw new Error('Error al eliminar subasta y limpiar referencias: ' + error.message);
     }
   }
+
   // SubastaService.js
 
-// SubastaService.js
-async agregarOferta(subastaId, ofertaData) {
-  try {
-    const { usuario, monto } = ofertaData;
+  // SubastaService.js
+  async agregarOferta(subastaId, ofertaData) {
+    try {
+      const { usuario, monto } = ofertaData;
 
-    // Verifica que el usuario exista en la base de datos antes de agregar la oferta
-    const usuarioExistente = await UsuarioModel.findById(usuario);
-    if (!usuarioExistente) {
-      throw new Error('El usuario no existe');
+      // Verifica que el usuario exista en la base de datos antes de agregar la oferta
+      const usuarioExistente = await UsuarioModel.findById(usuario);
+      if (!usuarioExistente) {
+        throw new Error('El usuario no existe');
+      }
+
+      const subasta = await SubastaModel.findById(subastaId);
+      if (!subasta) {
+        throw new Error('Subasta no encontrada');
+      }
+
+      // Si el usuario existe, agregamos la oferta
+      subasta.ofertadores.push({ usuario: usuario, monto });
+
+      await subasta.save();
+
+      usuarioExistente.ofertasHechas.push({ subasta: subastaId, monto });
+      await usuarioExistente.save();
+      return subasta;
+    } catch (error) {
+      throw new Error('Error al agregar la oferta: ' + error.message);
     }
-
-    const subasta = await SubastaModel.findById(subastaId);
-    if (!subasta) {
-      throw new Error('Subasta no encontrada');
-    }
-
-    // Si el usuario existe, agregamos la oferta
-    subasta.ofertadores.push({ usuario: usuario, monto });
-
-    await subasta.save();
-
-    usuarioExistente.ofertasHechas.push({subasta:subastaId, monto});
-    await usuarioExistente.save();
-    return subasta;
-  } catch (error) {
-    throw new Error('Error al agregar la oferta: ' + error.message);
   }
-}
 
 
 
