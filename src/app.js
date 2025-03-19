@@ -44,7 +44,7 @@ app.use(session({
     }),
     cookie: {
         secure: true,   // Solo con HTTPS
-        httpOnly: true, // No accesible desde frontend
+        httpOnly: false, // No accesible desde frontend
         sameSite: "None" // Necesario si frontend y backend están en dominios distintos
     }
 }));
