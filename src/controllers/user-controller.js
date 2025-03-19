@@ -134,7 +134,7 @@ class UsuarioController {
         sameSite: "None", // 🔥 Importante para que funcione en diferentes dominios
         maxAge: 24 * 60 * 60 * 1000, // 24 horas
         path: '/',
-        domain: ".railway.app", // Disponible en toda la app
+        domain: req.hostname, // Disponible en toda la app
       });
 
       return res.status(201).json({
@@ -146,15 +146,16 @@ class UsuarioController {
       res.status(500).json({ message: 'Error de Login' + error.message })
     }
   }
+
   async logOut(req, res) {
-    const cookies = req.cookies;  // Obtener todas las cookies
-  
-    // Recorrer todas las cookies y eliminarlas
-    for (let cookie in cookies) {
-      res.clearCookie(cookie, { path: '/' });  // Eliminar cada cookie con el path por defecto
-    }
-  
-    res.json({ message: 'LogOUT' });
+    res.clearCookie('acces_token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      domain: ".railway.app",
+      path: "/"
+    });
+    res.status(200).json({ message: "Logout exitoso" });
   }
 }
 
