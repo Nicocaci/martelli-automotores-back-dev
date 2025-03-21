@@ -53,9 +53,9 @@ class UsuarioDAO {
       throw new Error('Error al eliminar usuario: ' + error.message);
     }
   }
-  async obtenerUsuarioPorNombre(nombre){
+  async obtenerUsuarioPorNombre(agencia){
     try {
-      const usuario = await UsuarioModel.findOne({ nombre }).populate('ofertasHechas.subasta'); // Corrección aquí
+      const usuario = await UsuarioModel.findOne({ agencia }).populate('ofertasHechas.subasta'); // Corrección aquí
       if (!usuario) throw new Error("Usuario no encontrado");
       return usuario;
     } catch (error) {

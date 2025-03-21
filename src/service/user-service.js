@@ -22,9 +22,9 @@ class UsuarioService {
       throw new Error('Error en el servicio de usuario: ' + error.message);
     }
   }
-  async obtenerUsuarioPorNombre(nombre) {
+  async obtenerUsuarioPorNombre(agencia) {
     try {
-      const usuario = await UsuarioRepository.obtenerUsuarioPorNombre(nombre);
+      const usuario = await UsuarioRepository.obtenerUsuarioPorNombre(agencia);
       if (!usuario) {
         throw new Error('Usuario no encontrado');
       }

@@ -6,8 +6,6 @@ import userRouter from "./routes/user-router.js";
 import subRouter from "./routes/sub-router.js";
 import ofertRouter from "./routes/ofert-router.js";
 import cors from "cors";
-import session from "express-session";
-import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 
 dotenv.config();  // 🔥 Mover al principio
@@ -25,26 +23,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(cors({
-    origin: "https://martelli-automotores-front-production.up.railway.app",
+    origin: "https://martelli-automotores-front-dev-production.up.railway.app",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
-app.use(session({
-    secret: 'autos',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URL,
-        ttl: 100
-    }),
-    cookie: {
-        secure: true,   // 🔥 Necesario para HTTPS en Railway
-        httpOnly: false, // 🔥 No accesible desde frontend
-        sameSite: "None" // 🔥 Para que funcione en dominios distintos
-    }
-}));
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Credentials", "true");

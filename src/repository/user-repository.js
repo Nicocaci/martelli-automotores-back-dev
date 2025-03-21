@@ -24,9 +24,9 @@ class UsuarioRepository {
     }
 }
 
-  async obtenerUsuarioPorNombre(nombre) {
+  async obtenerUsuarioPorNombre(agencia) {
     try {
-      const usuario = await UsuarioDAO.obtenerUsuarioPorNombre(nombre);
+      const usuario = await UsuarioDAO.obtenerUsuarioPorNombre(agencia);
       if (!usuario) {
         throw new Error('Usuario no encontrado');
       }
